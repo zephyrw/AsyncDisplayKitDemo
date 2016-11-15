@@ -2,8 +2,14 @@
 ## 简介
 
 
+### AsyncDisplayKit简介
+> AsyncDisplayKit（以下简称 ASDK）是由 Facebook 开源的一个 iOS 框架，能够帮助最复杂的 UI 界面保持流畅和快速响应。
+
 在使用本Demo前可以参考我翻译的官网的部分指导教程：https://anye3210.github.io ，了解有关AsyncDisplayKit的要点。
 
+关于使用 AsyncDisplayKit 的优势可以参考这篇文章：http://draveness.me/asdk-rendering/
+
+### Demo简介
 本Demo参考了官方的示例gram的架构方式，为了综合使用各种node，在官方的基础上增加了布局的复杂度，界面外观参考的500px，数据请求也是使用的500px的Api；
 
 本Demo主要是基于tableNode，与UIKit中的tableView类似。
@@ -22,7 +28,7 @@ AsyncDisplayKit 可以在 `willBeginBatchFetchWithContext` 方法中进行自定
 AsyncDisplayKit 中有 `ASNetworkImageNode` ，用于网络图片的管理，只需要给该 `node` 赋URL值即可，如果要对请求的图片进行更改后再显示，可以实现 `imageModificationBlock` 返回处理后的图片。 而且 `ASNetworkImageNode` 图片渐进式加载时会有模糊到清晰的效果，用户体验很好。
 
 ## 布局方式
-### Stack布局方式
+### ASDK 的 Stack 布局方式
 AsyncDisplayKit的ASStackLayoutRepect布局方式类似于CSS3的FlexBox布局，它存在以下的对应关系：
 
 | FlexBox | AsyncDisplayKit | 作用 |
@@ -31,7 +37,7 @@ AsyncDisplayKit的ASStackLayoutRepect布局方式类似于CSS3的FlexBox布局�
 | Content-justify | ASStackLayoutJustifyConten | 水平布局方式
 |Align-Items | ASStackLayoutAlignItems| 纵向布局方式 |
 
-### 其他布局方式
+### ASDK的其他布局方式
 
 ASDK不仅限于类似FlexBox的LayoutSpec，还有以下几种：
 
@@ -42,21 +48,38 @@ ASDK不仅限于类似FlexBox的LayoutSpec，还有以下几种：
 
 在LayoutSpect中可以放另一个LayoutSpect，也可以放 node (ASDK中的基本单位，类似于UIView）。
 
-### Demo架构
+## Demo架构
 
 在UIKit中，所有的界面操作都是在主线程中进行，而 AsyncDisplayKit 对界面的布局，界面数据加载及界面渲染都是异步进行，所以进行项目驾构时有很大的差异。
 
 在 ASyncDisplayKit 中有两个很重要的概念 `node` (节点) 和 `node container` (节点容器)，节点类似 UIKit 中的 UIView，节点容器类似于 UIViewController。 在需要性能优化的界面，一定要把 `node` 放在 `node container` 中，否则达不到预期的效果，反而会造成闪屏等不良影响。
 
-#### 使用容器
+### 容器的使用
 
 本 Demo 中，`UINavigationController` 和 `UITabBarController` 使用的 UIKit ，因为在界面跳转不存在性能问题。而在主界面使用的是 `ASViewController` 容器（类似`UIViewController` ），其内部的 `node` 也是全部使用 AsyncDisplayKit 框架。
 
-#### 容器内节点的使用
+### 容器内节点的使用
+#### 常规节点
 
 ASDK中的所有节点初始化都在 `-init` 方法中，节点初始化之后，如果设置了 `automaticallyManagesSubnodes` 属性为 YES ，就不需要再使用 `-addSubnode` 方法添加节点。
 
-#### 各个节点的布局
+#### ASCellNode节点
+
+`tableNode` 的数据源方法建议使用
+
+``` objc
+ - (ASCellNodeBlock)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath
+``` 
+而不是
+
+``` objc
+ - (ASCellNode)tableNode:(ASTableNode *)tableNode nodeBlockForRowAtIndexPath:(NSIndexPath *)indexPath
+``` 
+使用带Block的方法可以保证cell的加载是异步的。
+
+在此方法中 `ASCellNode` 可以不手动复用，系统会自动复用。如果要通过 `indexPath`取出数据，一定要在 block 外进行，否则 cell 的加载就不能保证是异步的。 
+
+### 布局时机
 
 类似UIKit 中的 `layoutSubviews` 方法，ASDK提供了 `layoutSpecThatFits` 方法，在这里可以对所有的子节点进行布局，并返回 `ASLayoutSpec`。
 
