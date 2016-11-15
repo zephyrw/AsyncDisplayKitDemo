@@ -4,7 +4,7 @@
 
 在使用本Demo前可以参考我翻译的官网的部分指导教程：https://anye3210.github.io ，了解有关AsyncDisplayKit的要点。
 
-本Demo参考了官方的gram的架构方式，为了综合使用各种node，在官方的基础上增加了布局的复杂度，界面外观参考的500px，数据请求也是使用的500px的Api；
+本Demo参考了官方的示例gram的架构方式，为了综合使用各种node，在官方的基础上增加了布局的复杂度，界面外观参考的500px，数据请求也是使用的500px的Api；
 
 本Demo主要是基于tableNode，与UIKit中的tableView类似。
 
