@@ -87,7 +87,6 @@
     ASInsetLayoutSpec *avatarLayout = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, avatarLeftMargin, 0, 0) child:[_userAvatarImageView styledWithBlock:^(__kindof ASLayoutElementStyle * _Nonnull style) {
         style.preferredSize = CGSizeMake(avatarImageWH, avatarImageWH);
     }]];
-    
     // 名字和时间容器
     ASStackLayoutSpec *nameNTimeStack = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical spacing:0 justifyContent:ASStackLayoutJustifyContentStart alignItems:ASStackLayoutAlignItemsStart children:@[_userNameLabel, _photoTimeIntervalSincePostLabel]];
     
