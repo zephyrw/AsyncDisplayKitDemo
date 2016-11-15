@@ -1,0 +1,29 @@
+//
+//  PrefixHeader.pch
+//  ASDKSimpleDemo
+//
+//  Created by wpsd on 2016/11/11.
+//  Copyright © 2016年 wpsd. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+
+#ifdef DEBUG
+#define AYLog(...) NSLog(@"%s %@",__func__,[NSString stringWithFormat:__VA_ARGS__])
+#else
+#define AYLog(...)
+#endif
+
+#define AYDarkBlueColor [UIColor colorWithRed:70.0/255.0 green:102.0/255.0 blue:118.0/255.0 alpha:1.0]
+#define AYLightBlueColor [UIColor colorWithRed:34.0/255.0 green:171.0/255.0 blue:219.0/255.0 alpha:1.0]
+
+#define AYScreemWidth [UIScreen mainScreen].bounds.size.width
+#define AYScreemHeight [UIScreen mainScreen].bounds.size.height
+
+#import "Utilities.h"
+#import "UIView+AYFrame.h"
+
+#endif /* PrefixHeader_pch */
