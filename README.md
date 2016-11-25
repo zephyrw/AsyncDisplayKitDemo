@@ -3,7 +3,7 @@
 
 
 ### AsyncDisplayKit简介
-> AsyncDisplayKit（以下简称 ASDK）是由 Facebook 开源的一个 iOS 框架，能够帮助最复杂的 UI 界面保持流畅和快速响应。
+> AsyncDisplayKit（简称 ASDK）是由 Facebook 开源的一个 iOS 框架，能够帮助最复杂的 UI 界面保持流畅和快速响应。
 
 在使用本Demo前可以参考我翻译的官网的部分指导教程：https://anye3210.github.io ，了解有关AsyncDisplayKit的要点。
 
