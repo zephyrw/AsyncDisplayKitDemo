@@ -14,7 +14,7 @@
 
 本Demo主要是基于tableNode，与UIKit中的tableView类似。
 
-在Demo中主要分为两部分：ASDK部分和UIKit部分，ASDK是基于AsyncDisplayKit框架，实现异步布局界面，UIKit使用的是主线程布局。
+在Demo中主要分为两部分：ASDK部分和UIKit部分，ASDK是基于AsyncDisplayKit框架，实现异步布局、预加载及渲染界面，UIKit使用的是主线程布局和渲染界面。
 ## 数据加载方式
 ### 相同点
 
